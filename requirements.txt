@@ -1,0 +1,13 @@
+git clone
+
+npm i
+
+devDependencies
+
+npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+npx tailwindcss init -p
+
+dependencies
+
+npm i react-router-dom
+npm i uuid

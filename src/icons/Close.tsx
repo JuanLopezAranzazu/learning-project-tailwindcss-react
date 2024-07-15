@@ -9,8 +9,8 @@ export const Close = () => {
       <path
         fill="none"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         d="m.5.499 23 23M23.5.499l-23 23"
       ></path>
     </svg>

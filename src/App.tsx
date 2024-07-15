@@ -3,13 +3,17 @@ import { Layout } from "./layouts/Layout";
 import { Home } from "./pages/Home";
 import { Error404 } from "./pages/Error404";
 import { About } from "./pages/About";
+import { NoteAdd } from "./pages/NoteAdd";
+import { NoteEdit } from "./pages/NoteEdit";
 import { v4 as uuidv4 } from "uuid";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { Note, NoteData } from "./types/Note";
+import { NoteLayout } from "./components/NoteLayout";
+import { Tag } from "./types/Tag";
 
 // Componente principal
 function App() {
-  const [tags, setTags] = useLocalStorage<string[]>("TAGS", [
+  const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", [
     { id: uuidv4(), name: "Personal" },
     { id: uuidv4(), name: "Trabajo" },
   ]);
@@ -39,7 +43,7 @@ function App() {
 
   const onAddNote = (data: NoteData) => {
     setNotes((prevNotes) => {
-      return [...prevNotes, { id: uuidV4(), ...data }];
+      return [...prevNotes, { id: uuidv4(), ...data }];
     });
   };
 
@@ -63,7 +67,22 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home notes={notes} tags={tags} />} />
+        <Route
+          path=""
+          element={
+            <Home notes={notes} tags={tags} onDeleteNote={onDeleteNote} />
+          }
+        />
+        <Route
+          path="note/add"
+          element={<NoteAdd tags={tags} onAddNote={onAddNote} />}
+        />
+        <Route path="note/edit/:id" element={<NoteLayout notes={notes} />}>
+          <Route
+            index
+            element={<NoteEdit onUpdateNote={onUpdateNote} tags={tags} />}
+          />
+        </Route>
         <Route path="about" element={<About />} />
         <Route path="*" element={<Error404 />} />
       </Route>

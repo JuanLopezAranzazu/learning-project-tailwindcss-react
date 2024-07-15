@@ -34,7 +34,12 @@ export const Header = () => {
         } fixed top-0 left-0 h-full w-full z-10 bg-slate-800 flex-col items-center justify-center gap-4 md:flex md:static md:bg-transparent md:flex-row md:items-center md:justify-between md:w-auto md:gap-2`}
       >
         {routes.map((route) => (
-          <HeaderLink key={route.to} to={route.to} text={route.text} />
+          <HeaderLink
+            key={route.to}
+            to={route.to}
+            text={route.text}
+            toggleMenu={toggleMenu}
+          />
         ))}
         <button
           onClick={toggleMenu}

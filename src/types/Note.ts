@@ -1,7 +1,7 @@
 export type NoteData = {
   title: string;
   content: string;
-  tagIds: string[]; // Los tags son opcionales
+  tagIds?: string[]; // Los tags son opcionales
   isFixed: boolean; // Si la nota esta fijada
 };
 

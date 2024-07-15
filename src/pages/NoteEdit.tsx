@@ -28,6 +28,8 @@ export const NoteEdit = ({ onUpdateNote, tags }: NoteAddProps) => {
         title={note.title}
         content={note.content}
         isFixed={note.isFixed}
+        tags={tags}
+        tagIds={note.tagIds}
       />
     </div>
   );

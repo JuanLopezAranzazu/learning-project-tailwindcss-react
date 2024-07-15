@@ -16,6 +16,8 @@ export const Home = ({ notes, tags, onDeleteNote }: HomeProps) => {
   const navigate = useNavigate();
   // Filtrar las notas fijadas
   const fixedNotes = notes.filter((note) => note.isFixed);
+  // Filtrar las notas que no están fijadas
+  const otherNotes = notes.filter((note) => !note.isFixed);
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -28,7 +30,7 @@ export const Home = ({ notes, tags, onDeleteNote }: HomeProps) => {
       </div>
       <div className="bg-gray-100 p-4 rounded-lg">
         <h2 className="text-xl font-semibold mb-4">Otras notas</h2>
-        <NoteList notes={notes} tags={tags} onDeleteNote={onDeleteNote} />
+        <NoteList notes={otherNotes} tags={tags} onDeleteNote={onDeleteNote} />
       </div>
     </div>
   );

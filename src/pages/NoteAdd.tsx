@@ -21,7 +21,7 @@ export const NoteAdd = ({ onAddNote, tags }: NoteAddProps) => {
   return (
     <div className="container mx-auto">
       <h1 className="text-3xl font-bold text-center">Agregar nota</h1>
-      <NoteForm onSubmit={(data) => handleSubmit(data)} />
+      <NoteForm onSubmit={(data) => handleSubmit(data)} tags={tags} />
     </div>
   );
 };

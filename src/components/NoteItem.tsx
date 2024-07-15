@@ -18,7 +18,10 @@ export const NoteItem = ({ note, tags, onDeleteNote }: NoteItemProps) => {
   const tagsForNote = getTagsForNote(note, tags);
 
   const handleDelete = () => {
-    onDeleteNote(note.id);
+    const confirmDelete = window.confirm("¿Estás seguro de borrar la nota?");
+    if (confirmDelete) {
+      onDeleteNote(note.id);
+    }
   };
 
   return (

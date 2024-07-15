@@ -2,7 +2,10 @@ import { useState } from "react";
 import { NoteData } from "../types/Note";
 import { Button } from "./Button";
 import { useNavigate } from "react-router-dom";
+import { SelectedTags } from "./SelectedTags";
+import { Tag } from "../types/Tag";
 
+// Definimos los tipos de datos para el formulario
 type FormErrors = {
   title: string;
   content: string;
@@ -14,6 +17,7 @@ type FormValues = {
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
+  tags: Tag[];
 } & Partial<NoteData>;
 
 export const NoteForm = ({
@@ -21,6 +25,8 @@ export const NoteForm = ({
   title = "",
   content = "",
   isFixed = false,
+  tags,
+  tagIds = [],
 }: NoteFormProps) => {
   const [formValues, setFormValues] = useState<FormValues>({
     title,
@@ -32,6 +38,7 @@ export const NoteForm = ({
     content: "",
   });
   const navigate = useNavigate();
+  const [selectedTags, setSelectedTags] = useState<string[]>(tagIds);
 
   // Funcion para manejar los cambios en los campos del formulario
   const handleChange = (
@@ -90,7 +97,7 @@ export const NoteForm = ({
       console.error("Formulario invalido");
       return;
     }
-    onSubmit({ ...formValues, tagIds: [] });
+    onSubmit({ ...formValues, tagIds: selectedTags });
   };
 
   return (
@@ -113,7 +120,7 @@ export const NoteForm = ({
           <p className="text-red-500 text-xs italic">{formErrors.title}</p>
         )}
       </div>
-      <div className="mb-6">
+      <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Contenido:
         </label>
@@ -126,6 +133,30 @@ export const NoteForm = ({
         {formErrors.content && (
           <p className="text-red-500 text-xs italic">{formErrors.content}</p>
         )}
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Etiquetas:
+        </label>
+        <SelectedTags
+          tags={tags}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+      </div>
+      <div className="flex items-center mb-4">
+        <input
+          type="checkbox"
+          name="isFixed"
+          checked={formValues.isFixed}
+          onChange={(e) =>
+            setFormValues({ ...formValues, isFixed: e.target.checked })
+          }
+          className="h-5 w-5 text-blue-600"
+        />
+        <label className="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500">
+          Fijar nota
+        </label>
       </div>
       <div className="flex gap-2">
         <Button
